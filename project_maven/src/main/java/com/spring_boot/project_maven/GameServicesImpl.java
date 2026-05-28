@@ -21,13 +21,11 @@ public class GameServicesImpl implements GameService {
 @Autowired
 private List<GamePlugin> plugins;
 public String game(GameCreationParams params) {
-    GamePlugin plugin;
-    switch(params.gameType) {
-        case "connectfour" -> plugin = new ConnectFourGameFactory();
-        case "taquin" -> plugin = new TaquinGameFactory();
-        default -> plugin = new TicTacToeGameFactory();
-    }
-    Game initGame = plugin.createGame(params.playerCount, params.boardSize);
+    GamePlugin plugin = plugins.stream()
+            .filter(p -> p.getGameId().equals(params.gameType))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("jeu inconnu : " + params.gameType));
+    Game initGame = plugin.createGame();
     games.put(initGame.getId().toString(), initGame);
     return initGame.getId().toString();
 }

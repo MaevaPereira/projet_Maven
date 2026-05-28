@@ -3,7 +3,9 @@ package com.spring_boot.project_maven.plugin;
 import com.spring_boot.project_maven.sensor.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -19,6 +21,12 @@ public class TicTacToePlugin implements GamePlugin {
         return new TicTacToeGameFactory().createGame(playerCount, boardSize);
     }
     public String getName(Locale locale) {
-        return "TicTacToe";
+        return messageSource.getMessage("game.tictactoe.name", null, locale);
     }
+
+    public String getGameId() {
+        return "tictactoe";
+    }
+
+    @Autowired private MessageSource messageSource;
 }

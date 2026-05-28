@@ -7,4 +7,5 @@ import java.util.Locale;
 public interface GamePlugin {
     Game createGame();
     String getName(Locale locale);
+    String getGameId();
 }

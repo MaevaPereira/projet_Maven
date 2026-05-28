@@ -3,7 +3,9 @@ package com.spring_boot.project_maven.plugin;
 import com.spring_boot.project_maven.sensor.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -19,6 +21,13 @@ public class ConnectFourPlugin implements GamePlugin {
         return new ConnectFourGameFactory().createGame(playerCount, boardSize);
     }
     public String getName(Locale locale) {
-        return "Connect Four";
+        return messageSource.getMessage("game.connectfour.name", null, locale);
     }
+
+    public String getGameId() {
+        return "connectfour";
+    }
+
+    @Autowired
+    private MessageSource messageSource;
 }

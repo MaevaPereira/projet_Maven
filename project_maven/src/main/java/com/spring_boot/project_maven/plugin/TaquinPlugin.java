@@ -4,7 +4,9 @@ import com.spring_boot.project_maven.sensor.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -20,6 +22,11 @@ public class TaquinPlugin implements GamePlugin {
             return new TaquinGameFactory().createGame(playerCount, boardSize);
         }
         public String getName(Locale locale) {
-            return "Taquin";
+            return messageSource.getMessage("game.taquin.name", null, locale);
         }
+
+    public String getGameId() {
+        return "taquin";
     }
+    @Autowired private MessageSource messageSource;
+}
