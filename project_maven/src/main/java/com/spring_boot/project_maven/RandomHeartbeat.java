@@ -1,5 +1,6 @@
-package com.spring_boot.project_maven.sensor;
+package com.spring_boot.project_maven;
 
+import com.spring_boot.project_maven.sensor.HeartbeatSensor;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;

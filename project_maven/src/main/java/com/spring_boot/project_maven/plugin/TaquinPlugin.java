@@ -2,7 +2,6 @@ package com.spring_boot.project_maven.plugin;
 
 import com.spring_boot.project_maven.sensor.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
-import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +17,10 @@ public class TaquinPlugin implements GamePlugin {
 
         @Value("${game.taquin.default-board-size}")
         private int boardSize;
+        private final TaquinGameFactory taquinGameFactory = new TaquinGameFactory();
+
         public Game createGame() {
-            return new TaquinGameFactory().createGame(playerCount, boardSize);
+            return taquinGameFactory.createGame(playerCount, boardSize);
         }
         public String getName(Locale locale) {
             return messageSource.getMessage("game.taquin.name", null, locale);
@@ -28,5 +29,5 @@ public class TaquinPlugin implements GamePlugin {
     public String getGameId() {
         return "taquin";
     }
-    @Autowired private MessageSource messageSource;
+    @Autowired private MessageSource messageSource;//mettre dans le constructeur
 }

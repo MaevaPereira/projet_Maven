@@ -3,6 +3,7 @@ package com.spring_boot.project_maven.plugin;
 import com.spring_boot.project_maven.sensor.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
+import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -17,8 +18,10 @@ public class ConnectFourPlugin implements GamePlugin {
 
     @Value("${game.connectfour.default-board-size}")
     private int boardSize;
+    private final ConnectFourGameFactory connectFourGameFactory = new ConnectFourGameFactory();
+
     public Game createGame() {
-        return new ConnectFourGameFactory().createGame(playerCount, boardSize);
+        return connectFourGameFactory.createGame(playerCount, boardSize);
     }
     public String getName(Locale locale) {
         return messageSource.getMessage("game.connectfour.name", null, locale);
@@ -29,5 +32,5 @@ public class ConnectFourPlugin implements GamePlugin {
     }
 
     @Autowired
-    private MessageSource messageSource;
+    private MessageSource messageSource;//mettre dans le constructeur
 }
