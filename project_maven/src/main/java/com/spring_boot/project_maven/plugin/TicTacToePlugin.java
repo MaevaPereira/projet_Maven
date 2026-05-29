@@ -18,11 +18,13 @@ public class TicTacToePlugin implements GamePlugin {
 
     @Value("${game.tictactoe.default-board-size}")
     private int boardSize;
-    private final TaquinGameFactory ticTacToeGameFactory = new ticTacToeGameFactory();
+    private final TicTacToeGameFactory ticTacToeGameFactory = new TicTacToeGameFactory();
+    private final MessageSource messageSource;
 
     public Game createGame() {
-        return  ticTacToeGameFactory.createGame(playerCount, boardSize);
+        return ticTacToeGameFactory.createGame(playerCount, boardSize);
     }
+
     public String getName(Locale locale) {
         return messageSource.getMessage("game.tictactoe.name", null, locale);
     }
@@ -31,5 +33,7 @@ public class TicTacToePlugin implements GamePlugin {
         return "tictactoe";
     }
 
-    @Autowired private MessageSource messageSource;//mettre dans le constructeur
+    public TicTacToePlugin(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 }

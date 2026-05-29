@@ -12,22 +12,26 @@ import java.util.Locale;
 
 @Component
 public class TaquinPlugin implements GamePlugin {
-        @Value("${game.taquin.default-player-count}")
-        private int playerCount;
+    @Value("${game.taquin.default-player-count}")
+    private int playerCount;
 
-        @Value("${game.taquin.default-board-size}")
-        private int boardSize;
-        private final TaquinGameFactory taquinGameFactory = new TaquinGameFactory();
+    @Value("${game.taquin.default-board-size}")
+    private int boardSize;
+    private final TaquinGameFactory taquinGameFactory = new TaquinGameFactory();
+    private final MessageSource messageSource;
 
-        public Game createGame() {
-            return taquinGameFactory.createGame(playerCount, boardSize);
-        }
-        public String getName(Locale locale) {
-            return messageSource.getMessage("game.taquin.name", null, locale);
-        }
+    public Game createGame() {
+    return taquinGameFactory.createGame(playerCount, boardSize);
+    }
+    public String getName(Locale locale) {
+    return messageSource.getMessage("game.taquin.name", null, locale);
+    }
 
     public String getGameId() {
-        return "taquin";
+    return "taquin";
     }
-    @Autowired private MessageSource messageSource;//mettre dans le constructeur
+
+    public TaquinPlugin(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 }

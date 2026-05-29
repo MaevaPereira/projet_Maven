@@ -19,6 +19,7 @@ public class ConnectFourPlugin implements GamePlugin {
     @Value("${game.connectfour.default-board-size}")
     private int boardSize;
     private final ConnectFourGameFactory connectFourGameFactory = new ConnectFourGameFactory();
+    private final MessageSource messageSource;
 
     public Game createGame() {
         return connectFourGameFactory.createGame(playerCount, boardSize);
@@ -31,6 +32,8 @@ public class ConnectFourPlugin implements GamePlugin {
         return "connectfour";
     }
 
-    @Autowired
-    private MessageSource messageSource;//mettre dans le constructeur
+    public ConnectFourPlugin(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
 }

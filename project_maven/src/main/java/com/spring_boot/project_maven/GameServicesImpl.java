@@ -4,9 +4,6 @@ import com.spring_boot.project_maven.dto.GameCreationParams;
 import com.spring_boot.project_maven.sensor.GamePlugin;
 import com.spring_boot.project_maven.sensor.GameService;
 import fr.le_campus_numerique.square_games.engine.*;
-import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
-import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
-import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
