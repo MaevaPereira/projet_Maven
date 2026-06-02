@@ -2,14 +2,12 @@ package com.spring_boot.project_maven;
 
 import com.spring_boot.project_maven.sensor.GameDao;
 import fr.le_campus_numerique.square_games.engine.Game;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Primary
 @Repository
 
 public class JdbcGameDao implements GameDao {
