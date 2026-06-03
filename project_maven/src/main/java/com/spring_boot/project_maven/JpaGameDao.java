@@ -80,9 +80,5 @@ public class JpaGameDao implements GameDao {
     public JpaGameDao(GameEntityRepository gameEntityRepository, List<GamePlugin> plugins) {
         this.gameEntityRepository = gameEntityRepository;
         this.plugins = plugins;
-
-
     }
-
-
 }

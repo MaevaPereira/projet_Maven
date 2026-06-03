@@ -44,6 +44,7 @@ public class GameServicesImpl implements GameService {
         CellPosition position = new CellPosition(x, y);
         Game game = gameDao.findById(gameId).orElseThrow();
         Token t = game.getRemainingTokens().iterator().next();
+
         try {
             t.moveTo(position);
         } catch (InvalidPositionException e) {
