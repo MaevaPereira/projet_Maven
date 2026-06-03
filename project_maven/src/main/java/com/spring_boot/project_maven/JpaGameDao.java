@@ -5,13 +5,10 @@ import com.spring_boot.project_maven.entity.GameTokenEntity;
 import com.spring_boot.project_maven.repository.GameEntityRepository;
 import com.spring_boot.project_maven.sensor.GameDao;
 import com.spring_boot.project_maven.sensor.GamePlugin;
+import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
-import fr.le_campus_numerique.square_games.engine.GameFactory;
-import fr.le_campus_numerique.square_games.engine.Token;
-import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -19,6 +16,7 @@ import java.util.stream.Stream;
 @Primary
 @Repository
 public class JpaGameDao implements GameDao {
+
     private final GameEntityRepository gameEntityRepository;
     private final List<GamePlugin> plugins;
 
@@ -30,18 +28,19 @@ public class JpaGameDao implements GameDao {
                 game.getRemainingTokens().stream().map(token -> {
                     GameTokenEntity t = new GameTokenEntity();
                     t.name = token.getName();
-                    t.ownerId = token.getOwnerId().toString();
+                    t.ownerId = token.getOwnerId().orElseThrow().toString();
                     t.removed = false;
-                    token.getPosition().ifPresent(pos -> {
+                    CellPosition pos = token.getPosition();
+                    if (pos != null) {
                         t.x = pos.x();
                         t.y = pos.y();
-                    });
+                    }
                     return t;
                 }),
                 game.getRemovedTokens().stream().map(token -> {
                     GameTokenEntity t = new GameTokenEntity();
                     t.name = token.getName();
-                    t.ownerId = token.getOwnerId().toString();
+                    t.ownerId = token.getOwnerId().orElseThrow().toString();
                     t.removed = true;
                     return t;
                 })
